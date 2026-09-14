@@ -1,3 +1,77 @@
+# 💰 Buy or Wait? Autonomous AI Financial Agent
+
+**Status**: `Completed (100%)`  
+**Domain**: Autonomous Financial Agents, Multi-Modal Reasoning & Deterministic Simulation  
+**Event**: HackerRank Orchestrate (September Edition)  
+**Language**: Python 3.10+
+
+---
+
+## 📌 Solution & Architecture Overview
+
+This project implements a hybrid **Deterministic Forecaster + Multimodal AI Agent** that answers a critical financial question: *"Can I afford this purchase safely?"*
+
+The system combines mathematical rigor with LLM reasoning across three main pillars:
+1. **Deterministic Financial Forecaster**: Parses past bank transactions, historical cash flows, and scheduled liabilities. It performs graph-based currency normalization (using Breadth-First Search across currency exchange rates) and projects daily cash balances across a strict 90-day horizon with safety buffer margins.
+2. **Multimodal AI Core (`gemini-2.5-flash` / `gemini-1.5-flash`)**: Extracts missing transaction amounts from receipt and invoice images via Multimodal Vision OCR. It also parses conversational nuances from user chat histories to detect modifications, subscription cancellations, and wage adjustments.
+3. **Strict Pydantic Schema Enforcement**: Implements structured JSON mode schemas using Pydantic models to guarantee exact 8-column compliance without hallucinated categories.
+
+---
+
+## 🚀 How to Run the Project
+
+### 1. Prerequisites
+Install Python 3.10+ and project dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Configure Environment Variable
+Set your Google Gemini API key:
+* **PowerShell**: `$env:GEMINI_API_KEY="your-api-key-here"`
+* **CMD**: `set GEMINI_API_KEY=your-api-key-here`
+* **Bash / Zsh**: `export GEMINI_API_KEY="your-api-key-here"`
+
+### 3. Execute the Pipeline
+Run the main evaluation entry point:
+```bash
+python code/main.py
+```
+Outputs:
+* Results are written to `output.csv`.
+* Token usage metrics and latency benchmarks are logged to `evaluation/usage_report.md`.
+
+---
+
+## 🧠 What This Project Teaches
+
+* **Hybrid Agent Design**: Why pure LLMs fail at precise financial math, and how to pair deterministic simulation engines with generative models.
+* **Graph Algorithms in Finance**: Using Breadth-First Search (BFS) to solve multi-hop currency conversion graphs when direct FX pairs are unavailable.
+* **Multimodal Document Parsing**: How to extract structured financial values from noisy receipt images using Vision LLMs.
+* **Time-Series Cash Flow Projection**: Modeling recurring vs variable income/expenses over a 90-day forecasting window.
+
+---
+
+## 📚 Topics Covered (Basic to Advanced)
+
+### 🟢 Basic (Foundations)
+* **Python CLI Tools & File Management**: Dynamic path resolution, JSON cache management (`llm_cache.json`), and CSV generation.
+* **Data Parsing**: Extracting date fields, transaction types, and sender records from tabular formats.
+* **Environment Secrets**: Managing external API keys securely.
+
+### 🟡 Intermediate (Agent Integration & Modeling)
+* **Multi-Modal OCR**: Ingesting receipt images and PDFs to extract totals, tax, and line items.
+* **Intent Classification**: Classifying user statements into financial adjustments (e.g., "I cancelled Netflix" $\to$ deduct subscription).
+* **Pydantic Structured Output**: Enforcing rigid response schemas on LLM outputs to eliminate parsing errors.
+* **Variance & Regularity Analysis**: Detecting periodic cycles in past expenses to identify recurring liabilities.
+
+### 🔴 Advanced (Algorithms & Constraint Optimization)
+* **Graph-Based FX Routing (BFS Traversal)**: Finding the shortest exchange rate conversion path across disjoint currency pairs.
+* **Deterministic Cash Flow Simulation**: Projecting daily account balances across 90 days and evaluating whether balance ever dips below the user's risk tolerance threshold.
+* **Affordability Decision Logic**: Dynamically determining payment schedules: Full Payment vs Installment Plan vs Wait vs Reject.
+* **Token Caching & Cost Optimization**: Implementing local cache layers to minimize redundant LLM queries.
+
+---
 # HackerRank Orchestrate
 
 Starter repository for the **HackerRank Orchestrate** 24-hour hackathon (September 2026).
@@ -191,3 +265,4 @@ Before submitting, confirm:
 - Every `amount_safe_to_pay` satisfies `0 <= amount_safe_to_pay <= requested_amount`.
 - Every installment plan matches a supplied payment option, and every spending change targets a flexible recurring expense.
 - Your runnable code, setup instructions, and `evaluation/` folder are included in `code.zip`.
+
